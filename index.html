@@ -3,129 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Dohyun Kim - Game Developer Portfolio">
+    <meta name="description" content="Dohyun Kim - Game Developer">
     <title>Dohyun Kim | Game Developer</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <canvas id="particles"></canvas>
+    <div class="code-rain"></div>
 
-    <div class="container">
-        <header>
-            <div class="pixel-corners"></div>
-            <h1>Dohyun Kim</h1>
-            <p class="title">Game Developer</p>
-            <p class="subtitle">Crafting immersive gaming experiences</p>
-        </header>
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="btn close"></span>
+                <span class="btn minimize"></span>
+                <span class="btn maximize"></span>
+            </div>
+            <div class="terminal-title">~/portfolio</div>
+        </div>
 
-        <section class="skills">
-            <h2>Specializations</h2>
-            <div class="skills-grid">
-                <div class="skill-item">
-                    <span class="skill-icon">🎮</span>
-                    <span>Unity</span>
+        <div class="terminal-body">
+            <div class="line">
+                <span class="prompt">user@portfolio</span>
+                <span class="path">~</span>
+                <span class="command">$ cat about.txt</span>
+            </div>
+            <div class="output">
+                <div class="ascii-art">
+    ____        __
+   / __ \____  / /_  __  ____  ____
+  / / / / __ \/ __ \/ / / / / / / __ \
+ / /_/ / /_/ / / / / /_/ / /_/ / / / /
+/_____/\____/_/ /_/\__, /\__,_/_/ /_/
+    __ __ _       /____/
+   / //_/(_)___ ___
+  / ,<  / / __ `__ \
+ / /| |/ / / / / / /
+/_/ |_/_/_/ /_/ /_/
                 </div>
-                <div class="skill-item">
-                    <span class="skill-icon">⚡</span>
-                    <span>Unreal Engine</span>
+                <div class="info-block">
+                    <span class="key">Role:</span> <span class="value">Game Developer</span>
                 </div>
-                <div class="skill-item">
-                    <span class="skill-icon">💻</span>
-                    <span>C#</span>
+                <div class="info-block">
+                    <span class="key">Specialization:</span> <span class="value">Unity | Unreal Engine | C# | C++</span>
                 </div>
-                <div class="skill-item">
-                    <span class="skill-icon">⚙️</span>
-                    <span>C++</span>
-                </div>
-                <div class="skill-item">
-                    <span class="skill-icon">🎨</span>
-                    <span>Game Design</span>
-                </div>
-                <div class="skill-item">
-                    <span class="skill-icon">🎬</span>
-                    <span>3D Graphics</span>
+                <div class="info-block">
+                    <span class="key">Status:</span> <span class="value blink">Available for opportunities_</span>
                 </div>
             </div>
-        </section>
+
+            <div class="line">
+                <span class="prompt">user@portfolio</span>
+                <span class="path">~</span>
+                <span class="command">$ ls skills/</span>
+            </div>
+            <div class="output skills-grid">
+                <div class="skill-file">game_design.exe</div>
+                <div class="skill-file">3d_graphics.dll</div>
+                <div class="skill-file">gameplay_programming.cs</div>
+                <div class="skill-file">physics_systems.cpp</div>
+                <div class="skill-file">shader_development.hlsl</div>
+                <div class="skill-file">ai_systems.js</div>
+            </div>
+
+            <div class="line">
+                <span class="prompt">user@portfolio</span>
+                <span class="path">~</span>
+                <span class="cursor">█</span>
+            </div>
+        </div>
     </div>
 
-    <script>
-        // Particle animation
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const particles = [];
-        const particleCount = 100;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-                this.opacity = Math.random() * 0.5 + 0.2;
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
-            }
-
-            draw() {
-                ctx.fillStyle = `rgba(233, 69, 96, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function init() {
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 100) {
-                        ctx.strokeStyle = `rgba(233, 69, 96, ${0.2 * (1 - distance / 100)})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-
-            requestAnimationFrame(animate);
-        }
-
-        init();
-        animate();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
